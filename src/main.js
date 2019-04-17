@@ -59,11 +59,15 @@ Vue.use(Vuetify);
 
 Vue.config.productionTip = false
 
+import Viewer from 'viewerjs';
+
+import pdf from 'vue-pdf'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router, store,
-  components: { App, 'upload-btn': UploadButton },
+  components: { App, 'upload-btn': UploadButton, pdf },
   template: '<App/>',
   data: {
     themeColor: '#1D2939',

@@ -1,140 +1,50 @@
 <template>
-<v-navigation-drawer v-model="toggle" fixed app>
- <v-toolbar flat dark :color="$root.themeColor" class="toolbar">
+<v-navigation-drawer v-model="toggle" fixed app stateless value="true">
+ <v-toolbar flat light color="indigo" dense class="toolbar">
   <router-link :to="{ name: 'Dashboard' }">
    <img src="static/logo.png" width="36px"/>
   </router-link>
-   <router-link :to="{ name: 'Dashboard' }" class="text">
+   <router-link :to="{ name: 'Analisis' }" class="text">
     Administrar
    </router-link>
  </v-toolbar>
- <v-list>
-  <!-- <v-list-tile @click="changeRoute('Dashboard', 1)">
+
+ <v-list dense>
+  <v-list-tile>
    <v-list-tile-action>
-    <v-icon>dashboard</v-icon>
+    <v-icon color="#FC697D">home</v-icon>
    </v-list-tile-action>
-   <v-list-tile-title :class="[{'active': selectedIndex === 1}, 'item-title' ]">Dashboard</v-list-tile-title>
+   <v-list-tile-title>KClinic</v-list-tile-title>
   </v-list-tile>
 
-  <v-list-tile @click="changeRoute('Calendar', 2)">
-   <v-list-tile-action>
-    <v-icon>calendar_today</v-icon>
-   </v-list-tile-action>
-   <v-list-tile-title :class="[{'active': selectedIndex === 2}, 'item-title' ]">Calendar</v-list-tile-title>
-  </v-list-tile>
+  <v-list-group no-action sub-group value="true">
+    <template v-slot:activator>
+     <v-list-tile>
+      <v-list-tile-title>Administrar</v-list-tile-title>
+     </v-list-tile>
+    </template>
 
-  <v-list-tile @click="changeRoute('Mailbox', 3)">
-   <v-list-tile-action>
-    <v-icon>inbox</v-icon>
-   </v-list-tile-action>
-   <v-list-tile-title :class="[{'active': selectedIndex === 3}, 'item-title' ]">Mailbox</v-list-tile-title>
-  </v-list-tile> -->
+    <v-list-tile v-for="(admin, i) in admins" :key="i" @click="changeRoute(admin[2],i)">
+     <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
+     <v-list-tile-action>
+      <v-icon color="#FC697D" v-text="admin[1]"></v-icon>
+     </v-list-tile-action>
+    </v-list-tile>
+   </v-list-group>
 
-  <!-- <v-list-tile @click="changeRoute('Password', 8)">
-   <v-list-tile-action>
-    <v-icon>inbox</v-icon>
-   </v-list-tile-action>
-   <v-list-tile-title :class="[{'active': selectedIndex === 3}, 'item-title' ]">Password</v-list-tile-title>
-  </v-list-tile> -->
-
-  <!-- <v-list-group prepend-icon="pageview">
-   <v-list-tile slot="activator">
-    <v-list-tile-title class="item-title">Widgets</v-list-tile-title>
-   </v-list-tile>
-   <v-list-tile @click="changeRoute('Social', 4)">
-    <v-list-tile-action>
-     <v-icon>group</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title :class="[{'active': selectedIndex === 4}, 'item-title' ]">Social</v-list-tile-title>
-   </v-list-tile>
-   <v-list-tile @click="changeRoute('Chart', 5)">
-    <v-list-tile-action>
-     <v-icon>bar_chart</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title :class="[{'active': selectedIndex === 5}, 'item-title' ]">Charts</v-list-tile-title>
-   </v-list-tile>
-   <v-list-tile @click="changeRoute('Media', 6)">
-    <v-list-tile-action>
-     <v-icon>perm_media</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title :class="[{'active': selectedIndex === 6}, 'item-title' ]">Media</v-list-tile-title>
-   </v-list-tile>
-  </v-list-group>
-
-  <v-list-group prepend-icon="select_all">
-   <v-list-tile slot="activator">
-    <v-list-tile-title class="item-title">Overlays</v-list-tile-title>
-   </v-list-tile>
-   <v-list-tile @click="changeRoute('Snackbar', 7)">
-    <v-list-tile-action>
-     <v-icon>event_note</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title :class="[{'active': selectedIndex === 7}, 'item-title' ]">Snackbar</v-list-tile-title>
-   </v-list-tile>
-  </v-list-group> -->
-
-  <v-list-group prepend-icon="build">
-   <v-list-tile slot="activator">
-    <v-list-tile-title class="item-title">Acciones</v-list-tile-title>
-   </v-list-tile>
-
-   <v-list-tile @click="changeRoute('Password', 0)">
-    <v-list-tile-action>
-     <v-icon>inbox</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title>Usuarios APP (iOS/Android)</v-list-tile-title>
-   </v-list-tile>
-
-   <v-list-tile @click="changeRoute('AdminPassword', 1)">
-    <v-list-tile-action>
-     <v-icon>inbox</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title>Admin Users</v-list-tile-title>
-   </v-list-tile>
-
-   <v-list-tile @click="changeRoute('LeerPdf', 2)">
-    <v-list-tile-action>
-     <v-icon>inbox</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title>Leer PDF</v-list-tile-title>
-   </v-list-tile>
-
-
-  </v-list-group>
-
-  <!-- <v-list-tile @click="$router.push({ name: 'Error', params: { errorCode: '404' } })">
-    <v-list-tile-action>
-     <v-icon>cancel</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title class="item-title">404</v-list-tile-title>
-   </v-list-tile>
-
-   <v-list-tile @click="$router.push({ name: 'Error', params: { errorCode: '500' } })">
-    <v-list-tile-action>
-     <v-icon>cancel</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title class="item-title">500</v-list-tile-title>
-   </v-list-tile>
-
-   <v-list-tile @click="$router.push({ name: 'Login' })">
-    <v-list-tile-action>
-     <v-icon>cancel</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title class="item-title">Login</v-list-tile-title>
-   </v-list-tile>
-  </v-list-group>
-
-  <v-list-group prepend-icon="account_circle">
-   <v-list-tile slot="activator">
-    <v-list-tile-title class="item-title">Users</v-list-tile-title>
-   </v-list-tile>
-   <v-list-tile v-for="(admin, i) in admins" :key="i" @click="">
-    <v-list-tile-action>
-     <v-icon v-text="admin[1]"></v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
-   </v-list-tile>
-  </v-list-group>-->
+   <v-list-group sub-group no-action>
+    <template v-slot:activator>
+     <v-list-tile color="grey" >
+      <v-list-tile-title>Extras</v-list-tile-title>
+     </v-list-tile>
+    </template>
+    <v-list-tile v-for="(crud, i) in cruds" :key="i" @click="changeRoute(crud[2],i)">
+     <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
+     <v-list-tile-action>
+      <v-icon v-text="crud[1]" color="#FC697D"></v-icon>
+     </v-list-tile-action>
+    </v-list-tile>
+   </v-list-group>
  </v-list>
 </v-navigation-drawer>
 </template>
@@ -153,8 +63,23 @@ export default {
   return {
    selectedIndex: 1,
    admins: [
-    ['Management', 'people_outline'],
-    ['Settings', 'settings']
+    ['Recetario', 'people_outline', 'Analisis'],
+    ['Medicos', 'settings', 'RegisterUser'],
+    ['Paciente', 'people_outline', 'Analisis'],
+    ['Usuarios', 'settings', 'RegisterUser'],
+    ['Laboratorios', 'settings', 'RegisterUser'],
+    ['Citas', 'settings', 'RegisterUser'],
+    ['Consultas Medicas', 'settings', 'RegisterUser'],
+    ['Hitorial paciente', 'settings', 'RegisterUser'],
+    ['Receta', 'update', 'RegisterUser'],
+    ['Comentarios', 'delete', 'RegisterUser'],
+    ['Medicamentos', 'delete', 'RegisterUser']
+   ],
+   cruds: [
+    ['Estadistica', 'add', 'RegisterUser'],
+    ['Mantenimiento de Datos', 'insert_drive_file', 'RegisterUser'],
+    ['Accesos', 'update', 'RegisterUser'],
+    ['Reportes', 'delete', 'RegisterUser']
    ]
   }
  },

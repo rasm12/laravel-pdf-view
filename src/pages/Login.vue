@@ -75,12 +75,12 @@ export default {
    const vm = this;
 
    const postData = {
-    user: vm.login.user,
+    email: vm.login.user,
     password: vm.login.password
    }
-	 const authUser = {}
+   const authUser = {}
 
-	 vm.procesando = true
+   vm.procesando = true
 
    axios.post(monchisLoginUrl, postData)
     .then(response => {
@@ -90,7 +90,7 @@ export default {
      if (body.success === true) {
 
       authUser.data = body.data
-      authUser.token = body.token
+			authUser.token = body.token
       window.localStorage.setItem('authUser', JSON.stringify(authUser))
 
       vm.$session.start()
@@ -98,27 +98,16 @@ export default {
 
       vm.$store.dispatch('setUserObject', authUser)
       vm.$router.push({
-       name: 'Password'
+       name: 'Analisis'
       })
      } else {
       alert(body.data)
-		 }
-		 vm.procesando = false
+     }
+     vm.procesando = false
     }).catch(error => {
 
+     alert(error)
      vm.procesando = false
-     if (error.response) {
-      alert(error.response.data.data)
-     } else if (error.request) {
-      alert(error.response.data.data)
-     } else {
-      // Algo ocurrió al configurar la solicitud que provocó un error
-      if (error.message) {
-       alert(error.message, 'Ops!')
-      } else {
-       alert("Error desconocido", 'Ops!')
-      }
-     }
 
     });
   }

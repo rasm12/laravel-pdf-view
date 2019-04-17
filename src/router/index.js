@@ -13,7 +13,8 @@ import Error from '../pages/core/Error.vue';
 import MonchisAppUser from '../pages/MonchisAppUser.vue';
 import store from '../store'
 import MonchisAdminUser from '../pages/MonchisAdminUser.vue'
-import LeerPdf from '../pages/LeerPdf.vue'
+import Analisis from '../pages/Analisis.vue'
+import RegisterUser from '../pages/RegisterUser.vue'
 
 
 
@@ -138,12 +139,23 @@ const routes =  [
       }
 		},
 		{
-      path: '/info',
-      name: 'LeerPdf',
-      component: LeerPdf,
+      path: '/analisis',
+      name: 'Analisis',
+      component: Analisis,
       meta: {
         breadcrumb: [
-          { name: 'Leer PDF' }
+          { name: 'Cargar Recetario' }
+				],
+				requiresAuth: true
+      }
+		},
+		{
+      path: '/registro-usuario',
+      name: 'RegisterUser',
+      component: RegisterUser,
+      meta: {
+        breadcrumb: [
+          { name: 'Registro de Usuario' }
 				],
 				requiresAuth: true
       }

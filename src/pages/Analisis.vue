@@ -7,7 +7,7 @@
      <v-icon left color="#fff">add</v-icon>
     </template>
    </upload-btn> -->
-   <b-form-file v-model="pdfFile" accept="application/pdf" placeholder="Seleccionar Archivo PDF" />
+   <b-form-file v-model="pdfFile" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
 
    <v-btn color="rgba(255, 0, 0, 0.5)" dark @click.prevent="sendFile()">Enviar</v-btn>
   </v-toolbar>
@@ -65,12 +65,12 @@ export default {
   sendFile(e) {
 
    var vm = this;
-   vm.loading = true
 
    if (!vm.pdfFile) {
     alert('Seleccione un archivo')
     return;
 	 }
+	 vm.loading = true
 
 	 vm.stringPdf = null;
 

@@ -1,5 +1,5 @@
 <template>
-<v-toolbar dark app :color="$root.themeColor">
+<v-toolbar dark app color="indigo" dense>
  <v-toolbar-title>
   <v-toolbar-side-icon @click="toggleNavigationBar"></v-toolbar-side-icon>
  </v-toolbar-title>
