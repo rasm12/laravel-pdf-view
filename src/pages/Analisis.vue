@@ -10,7 +10,7 @@
    </v-flex>
    <v-flex md6 pb-0 pt-5>
     <b-form-file v-model="pdfFile" :multiple="false" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
-    <v-btn color="rgba(255, 0, 0, 0.5)" dark @click.prevent="sendFile()">Enviar</v-btn>
+    <v-btn color="indigo lighten-0" dark @click.prevent="sendFile()">Enviar</v-btn>
    </v-flex>
   </v-layout>
 
@@ -72,7 +72,7 @@ export default {
 
    var vm = this;
 	 console.log(this.pdfFile)
-	 console.log('paciente: ' + this.paciente)
+	 console.log('paciente: ' + JSON.stringify(this.paciente))
 
    if (!vm.pdfFile) {
     alert('Seleccione un archivo')
@@ -80,7 +80,6 @@ export default {
    }
 	 vm.loading = true
 
-	 return;
 
    vm.stringPdf = null;
 

@@ -1,5 +1,5 @@
 <template>
-<v-toolbar dark color="teal">
+<v-toolbar>
  <v-toolbar-title>Seleccione Paciente</v-toolbar-title>
  <v-autocomplete :change="update()" return-object v-model="pacienteCopy" item-value="email" :loading="loading" :items="patients" :search-input.sync="search" class="mx-3" flat hide-no-data hide-details label="Paciente" solo-inverted>
   <template v-slot:item="data">
