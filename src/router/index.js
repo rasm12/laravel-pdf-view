@@ -15,7 +15,7 @@ import store from '../store'
 import MonchisAdminUser from '../pages/MonchisAdminUser.vue'
 import Analisis from '../pages/Analisis.vue'
 import RegisterUser from '../pages/RegisterUser.vue'
-
+import RegistroPacientes from '../pages/RegistroPacientes.vue'
 
 
 
@@ -139,12 +139,23 @@ const routes =  [
       }
 		},
 		{
+      path: '/registrar-paciente',
+      name: 'RegistroPacientes',
+      component: RegistroPacientes,
+      meta: {
+        breadcrumb: [
+          { name: 'Registro Pacientes' }
+				],
+				requiresAuth: true
+      }
+		},
+		{
       path: '/analisis',
       name: 'Analisis',
       component: Analisis,
       meta: {
         breadcrumb: [
-          { name: 'Cargar Recetario' }
+          { name: 'Carga de Resultados' }
 				],
 				requiresAuth: true
       }

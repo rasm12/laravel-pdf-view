@@ -5,7 +5,7 @@
    <img src="static/logo.png" width="36px"/>
   </router-link>
    <router-link :to="{ name: 'Analisis' }" class="text">
-    Administrar
+    KClinic
    </router-link>
  </v-toolbar>
 
@@ -14,37 +14,37 @@
    <v-list-tile-action>
     <v-icon color="#FC697D">home</v-icon>
    </v-list-tile-action>
-   <v-list-tile-title>KClinic</v-list-tile-title>
+   <v-list-tile-title></v-list-tile-title>
   </v-list-tile>
 
   <v-list-group no-action sub-group value="true">
-    <template v-slot:activator>
-     <v-list-tile>
-      <v-list-tile-title>Administrar</v-list-tile-title>
-     </v-list-tile>
-    </template>
-
-    <v-list-tile v-for="(admin, i) in admins" :key="i" @click="changeRoute(admin[2],i)">
-     <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
-     <v-list-tile-action>
-      <v-icon color="#FC697D" v-text="admin[1]"></v-icon>
-     </v-list-tile-action>
+   <template v-slot:activator>
+    <v-list-tile>
+     <v-list-tile-title>Administrar</v-list-tile-title>
     </v-list-tile>
-   </v-list-group>
+   </template>
 
-   <v-list-group sub-group no-action>
-    <template v-slot:activator>
-     <v-list-tile color="grey" >
-      <v-list-tile-title>Extras</v-list-tile-title>
-     </v-list-tile>
-    </template>
-    <v-list-tile v-for="(crud, i) in cruds" :key="i" @click="changeRoute(crud[2],i)">
-     <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
-     <v-list-tile-action>
-      <v-icon v-text="crud[1]" color="#FC697D"></v-icon>
-     </v-list-tile-action>
+   <v-list-tile v-for="(admin, i) in admins" :key="i" @click="changeRoute(admin[2],i)">
+    <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
+    <v-list-tile-action>
+     <v-icon color="#FC697D" v-text="admin[1]"></v-icon>
+    </v-list-tile-action>
+   </v-list-tile>
+  </v-list-group>
+
+  <v-list-group sub-group no-action>
+   <template v-slot:activator>
+    <v-list-tile color="grey">
+     <v-list-tile-title>Extras</v-list-tile-title>
     </v-list-tile>
-   </v-list-group>
+   </template>
+   <v-list-tile v-for="(crud, i) in cruds" :key="i" @click="changeRoute(crud[2],i)">
+    <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
+    <v-list-tile-action>
+     <v-icon v-text="crud[1]" color="#FC697D"></v-icon>
+    </v-list-tile-action>
+   </v-list-tile>
+  </v-list-group>
  </v-list>
 </v-navigation-drawer>
 </template>
@@ -65,7 +65,7 @@ export default {
    admins: [
     ['Recetario', 'people_outline', 'Analisis'],
     ['Medicos', 'settings', 'RegisterUser'],
-    ['Paciente', 'people_outline', 'Analisis'],
+    ['Pacientes', 'people_outline', 'RegistroPacientes'],
     ['Usuarios', 'settings', 'RegisterUser'],
     ['Laboratorios', 'settings', 'RegisterUser'],
     ['Citas', 'settings', 'RegisterUser'],
@@ -79,7 +79,8 @@ export default {
     ['Estadistica', 'add', 'RegisterUser'],
     ['Mantenimiento de Datos', 'insert_drive_file', 'RegisterUser'],
     ['Accesos', 'update', 'RegisterUser'],
-    ['Reportes', 'delete', 'RegisterUser']
+    ['Reportes', 'delete', 'RegisterUser'],
+    ['Impresoras', 'add', 'RegisterUser'],
    ]
   }
  },

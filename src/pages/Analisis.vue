@@ -1,17 +1,19 @@
 <template>
-<v-container fluid grid-list-xl>
+<v-container fluid>
  <v-card flat>
-  <v-toolbar color="#ECEFF1" dark extended flat>
-   <!-- <upload-btn :loading="loading" color="success" :fileChangedCallback="fileChanged" ref="inputFile" title="Seleccionar PDF" accept="application/pdf" round uniqueId>
-    <template slot="icon-left">
-     <v-icon left color="#fff">add</v-icon>
-    </template>
-   </upload-btn> -->
-   <b-form-file v-model="pdfFile" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
+  <v-layout column>
+   <v-flex md6>
+    <v-progress-linear :indeterminate="loading" v-if="loading"></v-progress-linear>
+   </v-flex>
+   <v-flex md6>
+    <search-paciente :paciente="paciente" @updateFromChild="updatePacientValue"></search-paciente>
+   </v-flex>
+   <v-flex md6 pb-0 pt-5>
+    <b-form-file v-model="pdfFile" :multiple="false" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
+    <v-btn color="rgba(255, 0, 0, 0.5)" dark @click.prevent="sendFile()">Enviar</v-btn>
+   </v-flex>
+  </v-layout>
 
-   <v-btn color="rgba(255, 0, 0, 0.5)" dark @click.prevent="sendFile()">Enviar</v-btn>
-  </v-toolbar>
-  <v-progress-linear :indeterminate="loading" v-if="loading"></v-progress-linear>
   <v-layout row pb-2>
 
    <v-flex xs8 offset-xs2>
@@ -35,6 +37,7 @@
 
 <script>
 import UploadButton from 'vuetify-upload-button'
+import SearchPaciente from '@/components/SearchPaciente.vue'
 import axios from 'axios'
 import {
  pdfReadUrl,
@@ -43,6 +46,7 @@ import {
 export default {
  components: {
   'upload-btn': UploadButton,
+  'search-paciente': SearchPaciente
  },
  data() {
   return {
@@ -50,7 +54,8 @@ export default {
    title: 'Seleccionar PDF',
    pdfFile: null,
    loading: false,
-   stringPdf: null
+	 stringPdf: null,
+	 paciente: null,
   }
  },
  beforeCreate: function () {
@@ -61,18 +66,23 @@ export default {
  methods: {
   fileChanged(file) {
    this.pdfFile = file
+   console.log(this.pdfFile)
   },
   sendFile(e) {
 
    var vm = this;
+	 console.log(this.pdfFile)
+	 console.log('paciente: ' + this.paciente)
 
    if (!vm.pdfFile) {
     alert('Seleccione un archivo')
     return;
-	 }
+   }
 	 vm.loading = true
 
-	 vm.stringPdf = null;
+	 return;
+
+   vm.stringPdf = null;
 
    let formData = new FormData();
    formData.append('file', this.pdfFile)
@@ -83,16 +93,28 @@ export default {
     data: formData,
     headers: getHeaders()
    }).then(response => {
-    console.log(response.data)
-    vm.stringPdf = response.data
+
+    if (response.data.success) {
+     vm.stringPdf = response.data.data;
+    } else {
+     this.$toasted.show(response.data.data, {
+      type: 'error',
+      icon: 'error'
+     })
+    }
     vm.loading = false
    }).catch(error => {
-		console.log('Error desc: ' + JSON.stringify(error))
-		vm.stringPdf = null
+    vm.stringPdf = null
     vm.loading = false
 
    })
-  }
+	},
+	updatePacientValue(newvalue){
+		this.paciente = newvalue;
+	}
+ },
+ mounted() {
+
  }
 }
 </script>

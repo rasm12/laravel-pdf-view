@@ -1,49 +1,51 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
-import router from './router';
-
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-import 'vuetify/dist/vuetify.min.css';
+import axios from 'axios';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import Chart from 'chart.js';
 import 'font-awesome/css/font-awesome.css';
-
-import Vuetify from 'vuetify';
-
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import Vue from 'vue';
+import VueAxios from 'vue-axios';
+import VueChartkick from 'vue-chartkick';
+import fullCalendar from 'vue-fullcalendar';
+import pdf from 'vue-pdf';
+import VueSession from 'vue-session';
+import swatches from 'vue-swatches';
+import "vue-swatches/dist/vue-swatches.min.css";
+// register the plugin on vue
+import Toasted from 'vue-toasted';
+import VueToastr2 from 'vue-toastr-2';
+import 'vue-toastr-2/dist/vue-toastr-2.min.css';
+import Vuetify from 'vuetify';
+import UploadButton from 'vuetify-upload-button';
+import 'vuetify/dist/vuetify.min.css';
+import App from './App';
+import { setupComponents } from './config/setup-components';
+import router from './router';
+import store from './store';
 import './styles/global.css';
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+Vue.use(BootstrapVue)
+
+
+
+
 
 Vue.use(VueAxios, axios);
 
-import VueChartkick from 'vue-chartkick';
-import Chart from 'chart.js';
-import fullCalendar from 'vue-fullcalendar';
-import { setupComponents } from './config/setup-components';
 
-import swatches from 'vue-swatches';
-import "vue-swatches/dist/vue-swatches.min.css"
 
-import $ from "jquery"
 window.$ = window.jQuery = require('jquery')
 
-import store from './store'
 
-import VueSession from 'vue-session'
 Vue.use(VueSession)
 
 
-import VueToastr2 from 'vue-toastr-2'
-import 'vue-toastr-2/dist/vue-toastr-2.min.css'
 window.toastr = require('toastr')
 
-import UploadButton from 'vuetify-upload-button';
 Vue.use(UploadButton);
 
 
@@ -59,9 +61,19 @@ Vue.use(Vuetify);
 
 Vue.config.productionTip = false
 
-import Viewer from 'viewerjs';
 
-import pdf from 'vue-pdf'
+
+
+Vue.use(Toasted, {
+	position: 'bottom-center',
+	duration: 3000,
+	iconPack: 'material',
+	theme:'toasted-primary',
+	closeOnSwipe: true,
+	singleton: true,
+	fullWidth: true,
+	fitToScreen: true
+})
 
 /* eslint-disable no-new */
 new Vue({

@@ -43,7 +43,7 @@
       </v-flex>
      </v-layout>
      <v-btn left @click.prevent="submit">Guardar</v-btn>
-     <v-btn left @click="clear">Limpiar Campos</v-btn>
+     <!-- <v-btn left @click="clear">Limpiar Campos</v-btn> -->
     </form>
    </v-card-actions>
   </v-card>

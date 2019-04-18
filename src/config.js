@@ -8,7 +8,7 @@ export const listAdminUsersUrl = apiDomain + 'users/admin/list'
 export const adminUserChangePasswordUrl = apiDomain + 'users/admin/change-password'
 export const newUserUrl = apiDomain + 'api/auth/user/create'
 export const listRole = apiDomain + 'api/auth/role/list'
-export const pdfReadUrl = 'http://localhost:8089/api/uploadfile'
+export const pdfReadUrl = apiDomain + 'api/auth/pdf'
 
 export const getHeaders = function () {
 	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
