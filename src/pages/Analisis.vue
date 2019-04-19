@@ -10,7 +10,10 @@
    </v-flex>
    <v-flex md6 pb-0 pt-5>
     <b-form-file v-model="pdfFile" :multiple="false" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
-    <v-btn color="indigo lighten-0" dark @click.prevent="sendFile()">Enviar</v-btn>
+    <v-btn color="indigo lighten-0" dark @click.prevent="sendFile()">
+     Cargar
+     <v-icon right dark>cloud_upload</v-icon>
+    </v-btn>
    </v-flex>
   </v-layout>
 
@@ -54,8 +57,8 @@ export default {
    title: 'Seleccionar PDF',
    pdfFile: null,
    loading: false,
-	 stringPdf: null,
-	 paciente: null,
+   stringPdf: null,
+   paciente: null,
   }
  },
  beforeCreate: function () {
@@ -71,20 +74,22 @@ export default {
   sendFile(e) {
 
    var vm = this;
-	 console.log(this.pdfFile)
-	 console.log('paciente: ' + JSON.stringify(this.paciente))
 
    if (!vm.pdfFile) {
-    alert('Seleccione un archivo')
+    this.$toasted.show("Debe seleccionar un archivo!", {
+     type: 'info',
+     icon: 'info'
+    });
     return;
    }
-	 vm.loading = true
-
-
+   vm.loading = true
    vm.stringPdf = null;
 
    let formData = new FormData();
    formData.append('file', this.pdfFile)
+   formData.append('document_number', this.paciente ? this.paciente : null)
+
+   console.log((formData.get('patient_id')))
 
    vm.axios({
     url: pdfReadUrl,
@@ -94,7 +99,10 @@ export default {
    }).then(response => {
 
     if (response.data.success) {
-     vm.stringPdf = response.data.data;
+     this.$toasted.show(response.data.data, {
+      type: 'success',
+      icon: 'success'
+     })
     } else {
      this.$toasted.show(response.data.data, {
       type: 'error',
@@ -107,10 +115,10 @@ export default {
     vm.loading = false
 
    })
-	},
-	updatePacientValue(newvalue){
-		this.paciente = newvalue;
-	}
+  },
+  updatePacientValue(newvalue) {
+   this.paciente = newvalue;
+  }
  },
  mounted() {
 

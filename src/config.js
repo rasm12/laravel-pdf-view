@@ -10,6 +10,10 @@ export const newUserUrl = apiDomain + 'api/auth/user/create'
 export const listRole = apiDomain + 'api/auth/role/list'
 export const pdfReadUrl = apiDomain + 'api/auth/pdf'
 
+// pacientes
+export const urlRegisterPatient = apiDomain + 'api/auth/patient/store'
+export const urlListPatients = apiDomain + 'api/auth/patient/list'
+
 export const getHeaders = function () {
 	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
   const headers = {

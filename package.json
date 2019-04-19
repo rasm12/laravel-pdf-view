@@ -25,6 +25,7 @@
     "vue-pdf": "^4.0.6",
     "vue-router": "^3.0.1",
     "vue-session": "^1.0.0",
+    "vue-snotify": "^3.2.1",
     "vue-swatches": "^1.0.2",
     "vue-toasted": "^1.1.26",
     "vue-toastr": "^2.0.16",

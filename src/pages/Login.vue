@@ -1,19 +1,38 @@
 <template>
-<v-app id="login" class="secondary">
+<v-app id="inspire">
  <v-content>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height grid-list-md>
    <v-layout align-center justify-center>
-    <v-flex xs12 sm8 md4 lg4>
-     <v-card class="elevation-1 pa-3">
-      <v-progress-linear :indeterminate="procesando" v-if="procesando"></v-progress-linear>
+    <v-flex xs12 sm8 md4>
+     <v-card class="elevation-12">
+
+      <v-toolbar dark color="primary">
+       <v-toolbar-title>Sign In</v-toolbar-title>
+
+       <v-spacer></v-spacer>
+       <!-- <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+         <v-btn :href="source" icon large target="_blank" v-on="on">
+          <v-icon large>code</v-icon>
+         </v-btn>
+        </template>
+        <span>Source</span>
+       </v-tooltip>
+       <v-tooltip right>
+        <template v-slot:activator="{ on }">
+         <v-btn icon large href="https://codepen.io/johnjleider/pen/wyYVVj" target="_blank" v-on="on">
+          <v-icon large>mdi-codepen</v-icon>
+         </v-btn>
+        </template>
+        <span>Codepen</span>
+       </v-tooltip> -->
+      </v-toolbar>
+      <v-progress-linear :indeterminate="loading" v-if="loading" class="pt-0"></v-progress-linear>
       <v-card-text>
-       <div class="layout column align-center">
-        <img src="static/logo.png" alt="Vue Material Admin" width="180" height="180">
-        <h1 class="flex my-4 primary--text"></h1>
-       </div>
+
        <v-form>
-        <v-text-field append-icon="person" name="login" label="Login" type="text" v-model="login.user" :error="error" :rules="[rules.required]" />
-        <v-text-field :type="hidePassword ? 'password' : 'text'" :append-icon="hidePassword ? 'visibility_off' : 'visibility'" name="password" label="Password" id="password" :rules="[rules.required]" v-model="login.password" :error="error" @click:append="hidePassword = !hidePassword" />
+        <v-text-field append-outer-icon="person" name="login" label="Login" type="text" v-model="login.user" :error="error" :rules="[rules.required]" />
+        <v-text-field :type="hidePassword ? 'password' : 'text'" :append-outer-icon="hidePassword ? 'visibility_off' : 'visibility'" name="password" label="Password" id="password" :rules="[rules.required]" v-model="login.password" :error="error" @click:append="hidePassword = !hidePassword" />
        </v-form>
       </v-card-text>
       <v-card-actions>
@@ -24,9 +43,6 @@
     </v-flex>
    </v-layout>
   </v-container>
-  <v-snackbar v-model="showResult" :timeout="2000" top>
-   {{ result }}
-  </v-snackbar>
  </v-content>
 </v-app>
 </template>
@@ -74,23 +90,22 @@ export default {
   handlelogin() {
    const vm = this;
 
+   vm.loading = true
+
    const postData = {
     email: vm.login.user,
     password: vm.login.password
    }
    const authUser = {}
 
-   vm.procesando = true
-
    axios.post(monchisLoginUrl, postData)
     .then(response => {
      //console.log('success: ' +JSON.stringify(response.data))
-     vm.loading = false
      const body = response.data
      if (body.success === true) {
 
       authUser.data = body.data
-			authUser.token = body.token
+      authUser.token = body.token
       window.localStorage.setItem('authUser', JSON.stringify(authUser))
 
       vm.$session.start()
@@ -101,14 +116,21 @@ export default {
        name: 'Analisis'
       })
      } else {
-      alert(body.data)
+      this.$toasted.show(body.data, {
+       type: 'error',
+       icon: 'error'
+      })
+      //this.$snotify.success('Example body content');
      }
-     vm.procesando = false
     }).catch(error => {
 
-     alert(error)
-     vm.procesando = false
+     this.$toasted.show(body.data, {
+      type: 'error',
+      icon: 'error'
+     })
 
+    }).then(f => {
+     vm.loading = false
     });
   }
  }
@@ -124,5 +146,12 @@ export default {
  left: 0;
  content: "";
  z-index: 0;
+}
+
+#inspire {
+ background-image: url('http://preview-vuse2.hexesis.com/static/doc-images/HexesisMaterial01.png');
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
 }
 </style>

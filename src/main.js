@@ -27,16 +27,11 @@ import { setupComponents } from './config/setup-components';
 import router from './router';
 import store from './store';
 import './styles/global.css';
+import Snotify, { SnotifyPosition } from 'vue-snotify'
 
 Vue.use(BootstrapVue)
 
-
-
-
-
 Vue.use(VueAxios, axios);
-
-
 
 window.$ = window.jQuery = require('jquery')
 
@@ -60,6 +55,13 @@ setupComponents(Vue);
 Vue.use(Vuetify);
 
 Vue.config.productionTip = false
+
+Vue.use(Snotify, {
+	toast: {
+		timeout: 2000,
+		closeOnClick: true
+  }
+})
 
 
 

@@ -1,12 +1,12 @@
 <template>
 <v-toolbar>
  <v-toolbar-title>Seleccione Paciente</v-toolbar-title>
- <v-autocomplete :change="update()" return-object v-model="pacienteCopy" item-value="email" :loading="loading" :items="patients" :search-input.sync="search" class="mx-3" flat hide-no-data hide-details label="Paciente" solo-inverted>
+ <v-autocomplete :change="update()" v-model="pacienteCopy" item-value="document_number" :loading="loading" :items="patients" :search-input.sync="search" class="mx-3" flat hide-no-data hide-details label="Paciente" solo-inverted>
   <template v-slot:item="data">
-   <span>{{data.item.name.first}} {{data.item.name.last}}</span>
+   <span>{{data.item.first_name}} {{data.item.last_name}} (Cedula: {{data.item.document_number}} )</span>
   </template>
   <template v-slot:selection="data">
-   <span>{{data.item.name.first}} {{data.item.name.last}}</span>
+   <span>{{data.item.first_name}} {{data.item.last_name}}</span>
   </template>
  </v-autocomplete>
  <v-btn icon>
@@ -17,6 +17,10 @@
 
 <script>
 import axios from 'axios'
+import {
+ urlListPatients,
+ getHeaders
+} from '../config'
 export default {
  props: ['paciente'],
  data() {
@@ -26,8 +30,8 @@ export default {
    search: null,
    select: null,
    pacienteCopy: this.paciente,
-	 loading: false,
-	 patients: []
+   loading: false,
+   patients: []
   }
  },
  mounted() {
@@ -53,10 +57,12 @@ export default {
    vm.loading = true
    axios({
     method: 'GET',
-    url: 'https://randomuser.me/api?results=5'
+    url: urlListPatients,
    }).then(response => {
-    //console.log(JSON.stringify(response.data.results))
-    vm.patients = response.data.results;
+
+    if (response.data.success) {
+     vm.patients = response.data.data;
+    }
    }).catch(error => {
     console.log(error)
    }).then(a => {
@@ -64,8 +70,8 @@ export default {
    })
   },
   update() {
-		// enviar al componente padre el cambio
-		this.$emit('updateFromChild',this.pacienteCopy);
+   // enviar al componente padre el cambio
+   this.$emit('updateFromChild', this.pacienteCopy);
   }
  },
 }
