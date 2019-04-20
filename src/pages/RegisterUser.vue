@@ -152,7 +152,6 @@ export default {
    }).then(response => {
     let body = response.data.data;
     let success = response.data.success;
-    console.log(JSON.stringify(body))
     if (success) {
      vm.items = body;
     } else {

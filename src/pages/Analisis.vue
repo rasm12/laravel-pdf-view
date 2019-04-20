@@ -5,32 +5,56 @@
    <v-flex md6>
     <v-progress-linear :indeterminate="loading" v-if="loading"></v-progress-linear>
    </v-flex>
-   <v-flex md6>
+  </v-layout>
+  <v-layout>
+   <v-flex md6 xs12 lg6>
     <search-paciente :paciente="paciente" @updateFromChild="updatePacientValue"></search-paciente>
    </v-flex>
-   <v-flex md6 pb-0 pt-5>
+
+	 <v-flex md4 xs12 lg6 ml-2>
+    <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent lazy full-width width="290px">
+     <v-text-field slot="activator" v-model="date" label="Fecha resultado" prepend-icon="event" readonly></v-text-field>
+     <v-date-picker v-model="date" scrollable locale="es">
+      <v-spacer></v-spacer>
+      <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+      <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+     </v-date-picker>
+    </v-dialog>
+   </v-flex>
+  </v-layout>
+
+
+  <v-layout>
+   <v-flex md8 pb-0 pt-3>
     <b-form-file v-model="pdfFile" :multiple="false" accept="application/pdf" placeholder="Seleccione un archivo PDF" />
+   </v-flex>
+
+	 <v-flex md4 pb-0 mt-2>
     <v-btn color="indigo lighten-0" dark @click.prevent="sendFile()">
      Cargar
      <v-icon right dark>cloud_upload</v-icon>
     </v-btn>
    </v-flex>
-  </v-layout>
+
+	</v-layout>
 
   <v-layout row pb-2>
 
    <v-flex xs8 offset-xs2>
-    <v-card class="card--flex-toolbar" v-if="pdfFile && stringPdf">
-     <v-toolbar card prominent>
+    <v-card class="card--flex-toolbar">
+     <!-- <v-toolbar card prominent>
       <v-toolbar-title class="body-2 grey--text">Nombre Archivo: {{this.pdfFile.name}}</v-toolbar-title>
       <template v-slot:extension>
        <v-toolbar-title class="gray--text"></v-toolbar-title>
       </template>
-     </v-toolbar>
+     </v-toolbar> -->
 
      <v-divider></v-divider>
 
-     <v-card-text style="height: auto; white-space: pre">{{stringPdf}}</v-card-text>
+     <v-card-text style="height: auto; white-space: pre">
+
+     </v-card-text>
+
     </v-card>
    </v-flex>
   </v-layout>
@@ -58,7 +82,9 @@ export default {
    pdfFile: null,
    loading: false,
    stringPdf: null,
-   paciente: null,
+	 paciente: null,
+	 modal: false,
+	 date: null
   }
  },
  beforeCreate: function () {
