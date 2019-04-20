@@ -12,7 +12,14 @@
     <v-card-text>
      <v-container>
 
-      <v-layout wap>
+      <v-layout wrap justify-space-between>
+
+       <v-flex xs6 sm4>
+        <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg" gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"></v-img>
+       </v-flex>
+      </v-layout>
+
+      <v-layout>
 
        <v-flex xs12 md4>
         <v-text-field v-model="patient.first_name" :rules="nameRules" label="Nombre" required></v-text-field>
@@ -27,22 +34,14 @@
        </v-flex>
       </v-layout>
 
-      <v-layout>
-       <v-flex xs12 md8>
-        <v-text-field v-model="patient.email" :rules="emailRules" label="E-mail" required></v-text-field>
-       </v-flex>
-       <v-flex xs12 md4>
-        <v-text-field v-model="patient.phone" :rules="phoneRules" label="Telefono" required></v-text-field>
-       </v-flex>
-       <v-flex xs12 md4>
-        <!-- <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field> -->
-       </v-flex>
+      <v-layout row wrap>
+
       </v-layout>
 
-      <v-layout row wrap>
+      <v-layout>
        <v-flex xs12 sm6 md6>
         <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent lazy full-width width="290px">
-         <v-text-field slot="activator" v-model="date" label="Fecha de Nacimiento" prepend-icon="event" readonly></v-text-field>
+         <v-text-field :rules="birthDateRules" slot="activator" v-model="date" label="Fecha de Nacimiento" :prepend-icon="null" readonly></v-text-field>
          <v-date-picker v-model="patient.birth_date" scrollable locale="es">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
@@ -50,6 +49,13 @@
          </v-date-picker>
         </v-dialog>
        </v-flex>
+       <v-flex xs12 md6>
+        <v-text-field v-model="patient.email" :rules="emailRules" label="E-mail" required></v-text-field>
+       </v-flex>
+       <v-flex xs12 md4>
+        <v-text-field v-model="patient.phone" :rules="phoneRules" label="Telefono" required></v-text-field>
+       </v-flex>
+
       </v-layout>
 
       <v-layout>
@@ -60,11 +66,11 @@
 
       <v-layout>
        <v-flex xs12 md4>
-        <v-select v-model="select" :items="items" label="Item"></v-select>
+        <v-select v-model="select" :rules="cityRules" :items="cities" label="Ciudad"></v-select>
        </v-flex>
 
-       <v-flex xs12 sm3 md3>
-        <v-text-field v-model="name" :counter="10" label="Age"></v-text-field>
+       <v-flex xs12 sm3 md2>
+        <v-text-field v-model="edad" :rules="ageRules" type="number" label="Edad"></v-text-field>
        </v-flex>
 
        <v-flex xs12 sm3 md4>
@@ -121,6 +127,16 @@ export default {
     return true;
    },
   ],
+  birthDateRules: [
+   v => !!v || 'Requerido',
+  ],
+  ageRules: [
+   v => !!v || 'Requerido',
+   v => !!v && v >= 0 || 'Valor no valido'
+  ],
+  cityRules: [
+   v => !!v || 'Requerido',
+  ],
   lastNameRules: [
    v => !!v || 'Requerido',
    v => !!v && v.trimStart().trimLeft().trim().length > 0 || 'Requerido'
@@ -141,6 +157,15 @@ export default {
   emailRules: [
    v => !!v || 'Requerido',
    v => /.+@.+/.test(v) || 'E-mail must be valid'
+  ],
+  cities: [
+   "San Lorenzo",
+   "Capiata",
+   "Asuncion",
+   "Fdo. de la Mora",
+   "Ita",
+   "Aregua",
+   "Luque"
   ]
  }),
  methods: {
@@ -178,10 +203,10 @@ export default {
   }
  },
  watch: {
-	 date (newval,oldval){
-		 console.log('newval: ' + newval)
-		 console.log('oldval: ' + oldval)
-	 }
+  date(newval, oldval) {
+   console.log('newval: ' + newval)
+   console.log('oldval: ' + oldval)
+  }
  }
 }
 </script>
