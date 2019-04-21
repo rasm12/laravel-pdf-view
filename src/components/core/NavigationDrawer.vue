@@ -63,23 +63,16 @@ export default {
   return {
    selectedIndex: 1,
    admins: [
-    ['Recetario', 'people_outline', 'Analisis'],
+    ['Analisis', 'people_outline', 'Analisis'],
     ['Medicos', 'settings', 'RegisterUser'],
     ['Pacientes', 'people_outline', 'RegistroPacientes'],
     ['Usuarios', 'settings', 'RegisterUser'],
-    ['Laboratorios', 'settings', 'RegisterUser'],
-    ['Citas', 'settings', 'RegisterUser'],
-    ['Consultas Medicas', 'settings', 'RegisterUser'],
     ['Hitorial paciente', 'settings', 'RegisterUser'],
-    ['Receta', 'update', 'RegisterUser'],
-    ['Comentarios', 'delete', 'RegisterUser'],
-    ['Medicamentos', 'delete', 'RegisterUser']
+    ['Comentarios', 'delete', 'RegisterUser']
    ],
    cruds: [
-    ['Estadistica', 'add', 'RegisterUser'],
     ['Mantenimiento de Datos', 'insert_drive_file', 'RegisterUser'],
     ['Accesos', 'update', 'RegisterUser'],
-    ['Reportes', 'delete', 'RegisterUser'],
     ['Impresoras', 'add', 'RegisterUser'],
    ]
   }

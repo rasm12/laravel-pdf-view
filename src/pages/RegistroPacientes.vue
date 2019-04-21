@@ -1,5 +1,5 @@
 <template>
-<v-container fluid grid-list-xl align-center justify-center row fill-height>
+<v-container fluid grid-list-xl align-center justify-center row>
  <v-layout row justify-center>
 
   <v-card>
@@ -12,25 +12,27 @@
     <v-card-text>
      <v-container>
 
-      <v-layout wrap justify-space-between>
+      <v-layout align-content-end>
 
-       <v-flex xs6 sm4>
-        <v-img src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg" gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"></v-img>
+       <v-flex text-xs-right layout align-center justify-end>
+        <v-avatar :tile="true" color="grey">
+         <img src="/static/add.png" alt="avatar">
+        </v-avatar>
        </v-flex>
       </v-layout>
 
       <v-layout>
 
        <v-flex xs12 md4>
-        <v-text-field v-model="patient.first_name" :rules="nameRules" label="Nombre" required></v-text-field>
+        <v-text-field v-model="patient.first_name" :rules="nameRules" label="Nombre *" required></v-text-field>
        </v-flex>
 
        <v-flex xs12 md4>
-        <v-text-field v-model="patient.last_name" :rules="lastNameRules" label="Apellido" required></v-text-field>
+        <v-text-field v-model="patient.last_name" :rules="lastNameRules" label="Apellido *" required></v-text-field>
        </v-flex>
 
        <v-flex xs12 md4>
-        <v-text-field v-model="patient.document_number" :rules="documentRules" label="Documento" required></v-text-field>
+        <v-text-field v-model="patient.document_number" :rules="documentRules" label="Documento *" required></v-text-field>
        </v-flex>
       </v-layout>
 
@@ -41,7 +43,7 @@
       <v-layout>
        <v-flex xs12 sm6 md6>
         <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent lazy full-width width="290px">
-         <v-text-field :rules="birthDateRules" slot="activator" v-model="date" label="Fecha de Nacimiento" :prepend-icon="null" readonly></v-text-field>
+         <v-text-field :rules="birthDateRules" slot="activator" v-model="date" label="Fecha de Nacimiento *" :prepend-icon="null" readonly></v-text-field>
          <v-date-picker v-model="patient.birth_date" scrollable locale="es">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
@@ -53,28 +55,28 @@
         <v-text-field v-model="patient.email" :rules="emailRules" label="E-mail" required></v-text-field>
        </v-flex>
        <v-flex xs12 md4>
-        <v-text-field v-model="patient.phone" :rules="phoneRules" label="Telefono" required></v-text-field>
+        <v-text-field v-model="patient.phone" :rules="phoneRules" label="Telefono *" required></v-text-field>
        </v-flex>
 
       </v-layout>
 
       <v-layout>
        <v-flex xs12 md12>
-        <v-text-field v-model="patient.address" :rules="addressRules" label="Direccion" required></v-text-field>
+        <v-text-field v-model="patient.address" :rules="addressRules" label="Direccion *" required></v-text-field>
        </v-flex>
       </v-layout>
 
       <v-layout>
        <v-flex xs12 md4>
-        <v-select v-model="select" :rules="cityRules" :items="cities" label="Ciudad"></v-select>
+        <v-select v-model="select" :rules="cityRules" :items="cities" label="Ciudad *"></v-select>
        </v-flex>
 
        <v-flex xs12 sm3 md2>
-        <v-text-field v-model="edad" :rules="ageRules" type="number" label="Edad"></v-text-field>
+        <v-text-field v-model="patient.age" :rules="ageRules" label="Edad *"></v-text-field>
        </v-flex>
 
        <v-flex xs12 sm3 md4>
-        <v-autocomplete :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']" label="Interests" multiple></v-autocomplete>
+        <v-autocomplete :rules="[v => !!v || 'Requerido']" :items="[{'description': 'Femenino', 'id': 'F'}, {'description': 'Masculino', 'id': 'M'}]" label="Genero *" item-text="description" item-value="id"></v-autocomplete>
        </v-flex>
 
       </v-layout>
@@ -83,7 +85,7 @@
     </v-card-text>
     <v-card-actions>
      <v-spacer></v-spacer>
-     <v-btn color="blue darken-1" flat @click.prevent="register">Save</v-btn>
+     <v-btn color="info" dark @click.prevent="register">Guardar</v-btn>
 
     </v-card-actions>
    </v-form>
@@ -132,7 +134,7 @@ export default {
   ],
   ageRules: [
    v => !!v || 'Requerido',
-   v => !!v && v >= 0 || 'Valor no valido'
+	 v => !!v && !isNaN(v.trimStart().trimLeft().trim()) && v >= 0 || 'Valor no valido'
   ],
   cityRules: [
    v => !!v || 'Requerido',
@@ -155,8 +157,8 @@ export default {
   ],
   email: '',
   emailRules: [
-   v => !!v || 'Requerido',
-   v => /.+@.+/.test(v) || 'E-mail must be valid'
+	 v => !!v || true,
+   v => (!v || (!!v && /.+@.+/.test(v))) || 'Email invalido'
   ],
   cities: [
    "San Lorenzo",

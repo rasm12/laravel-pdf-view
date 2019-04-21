@@ -1,7 +1,7 @@
 <template>
 <v-toolbar>
- <v-toolbar-title>Seleccione Paciente</v-toolbar-title>
- <v-autocomplete :change="update()" v-model="pacienteCopy" item-value="document_number" :loading="loading" :items="patients" :search-input.sync="search" class="mx-3" flat hide-no-data hide-details label="Paciente" solo-inverted>
+ <v-toolbar-title></v-toolbar-title>
+ <v-autocomplete :change="update()" v-model="pacienteCopy" item-value="document_number" :loading="loading" :items="patients" :search-input.sync="search" class="mx-3" hide-no-data hide-details label="Seleccione Paciente" solo-inverted>
   <template v-slot:item="data">
    <span>{{data.item.first_name}} {{data.item.last_name}} (Cedula: {{data.item.document_number}} )</span>
   </template>
@@ -9,9 +9,9 @@
    <span>{{data.item.first_name}} {{data.item.last_name}}</span>
   </template>
  </v-autocomplete>
- <v-btn icon>
+ <!-- <v-btn icon>
   <v-icon>more_vert</v-icon>
- </v-btn>
+ </v-btn> -->
 </v-toolbar>
 </template>
 
