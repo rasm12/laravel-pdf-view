@@ -16,7 +16,7 @@ import MonchisAdminUser from '../pages/MonchisAdminUser.vue'
 import Analisis from '../pages/Analisis.vue'
 import RegisterUser from '../pages/RegisterUser.vue'
 import RegistroPacientes from '../pages/RegistroPacientes.vue'
-
+import Role from '../pages/Role.vue'
 
 
 Vue.use(Router);
@@ -156,6 +156,17 @@ const routes =  [
       meta: {
         breadcrumb: [
           { name: 'Carga de Resultados' }
+				],
+				requiresAuth: true
+      }
+		},
+		{
+      path: '/role',
+      name: 'Role',
+      component: Role,
+      meta: {
+        breadcrumb: [
+          { name: 'Roles' }
 				],
 				requiresAuth: true
       }

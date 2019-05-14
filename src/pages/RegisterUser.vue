@@ -72,7 +72,7 @@ export default {
  data: () => ({
   name: '',
   email: '',
-	card_text: 'Agrega un nuevo usuario',
+  card_text: 'Agrega un nuevo usuario',
   userCreating: false,
   select: null,
   user: {},
@@ -118,8 +118,6 @@ export default {
      }
 
      console.log(JSON.stringify(vm.selectRol))
-
-     return;
 
      axios({
       method: 'POST',

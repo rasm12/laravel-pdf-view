@@ -124,6 +124,13 @@ export default {
      }
     }).catch(error => {
 
+     if (!error.status) {
+      this.$toasted.show('Verifique su conexion', {
+       type: 'error',
+       icon: 'error'
+      })
+      return;
+     }
      this.$toasted.show(body.data, {
       type: 'error',
       icon: 'error'

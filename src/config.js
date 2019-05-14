@@ -7,12 +7,18 @@ export const clientsUrl = apiDomain + 'callcenter/users'
 export const listAdminUsersUrl = apiDomain + 'users/admin/list'
 export const adminUserChangePasswordUrl = apiDomain + 'users/admin/change-password'
 export const newUserUrl = apiDomain + 'api/auth/user/create'
-export const listRole = apiDomain + 'api/auth/role/list'
 export const pdfReadUrl = apiDomain + 'api/auth/pdf'
 
 // pacientes
 export const urlRegisterPatient = apiDomain + 'api/auth/patient/store'
 export const urlListPatients = apiDomain + 'api/auth/patient/list'
+
+//roles
+export const listRole = apiDomain + 'api/auth/role/list'
+
+//permisos
+export const listOfPermissions = apiDomain + 'api/auth/permission/list'
+
 
 export const getHeaders = function () {
 	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));

@@ -35,7 +35,7 @@
   <v-list-group sub-group no-action>
    <template v-slot:activator>
     <v-list-tile color="grey">
-     <v-list-tile-title>Extras</v-list-tile-title>
+     <v-list-tile-title>Configuracion</v-list-tile-title>
     </v-list-tile>
    </template>
    <v-list-tile v-for="(crud, i) in cruds" :key="i" @click="changeRoute(crud[2],i)">
@@ -71,7 +71,7 @@ export default {
     ['Comentarios', 'delete', 'RegisterUser']
    ],
    cruds: [
-    ['Mantenimiento de Datos', 'insert_drive_file', 'RegisterUser'],
+    ['Roles', 'insert_drive_file', 'Role'],
     ['Accesos', 'update', 'RegisterUser'],
     ['Impresoras', 'add', 'RegisterUser'],
    ]

@@ -56,29 +56,29 @@ export default {
  data() {
   return {
    rowsPerPageItems: [4, 8, 12],
-   link: 'http://localhost:8089/api/auth/generate-pdf',
+   link: 'http://localhost:8089/api/auth/generate-pdf/'+ Math.floor((Math.random() * 100) + 1),
    pagination: {
     rowsPerPage: 4
    },
    items: [{
      name: 'Analisis Fecha 2019-04-20',
      medico: 'Kristina Pimenova',
-     resultado: 'http://localhost:8089/api/auth/generate-pdf'
+     resultado: 'http://localhost:8089/api/auth/generate-pdf/'+ Math.floor((Math.random() * 100) + 1)
     },
     {
      name: 'Analisis Fecha 2019-03-10',
      medico: 'Kristina Pimenova',
-     resultado: 'http://localhost:8089/api/auth/generate-pdf'
+     resultado: 'http://localhost:8089/api/auth/generate-pdf/'+ Math.floor((Math.random() * 100) + 1)
     },
     {
      name: 'Analisis Fecha 2019-01-15',
      medico: 'Gabriela Bernal',
-     resultado: 'http://localhost:8089/api/auth/generate-pdf'
+     resultado: 'http://localhost:8089/api/auth/generate-pdf/'+ Math.floor((Math.random() * 100) + 1)
     },
     {
      name: 'Analisis Fecha 2018-12-20',
      medico: 'Kristina Pimenova',
-     resultado: 'http://localhost:8089/api/auth/generate-pdf'
+     resultado: 'http://localhost:8089/api/auth/generate-pdf/'+ Math.floor((Math.random() * 100) + 1)
     }
    ]
   }
